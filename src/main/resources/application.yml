@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: app
+          uri: http://www.dnocm.com
+          # lb: Ribbon
+          # uri: lb://app-name
+          predicates:
+            - Path=/app/**
+            - NonHeader=tt
+          filters:
+            # Strip first path，such base
+            - StripPrefix=1
+            # - RewritePath=/base/,/
+eureka:
+  client:
+    enabled: false
