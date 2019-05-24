@@ -13,6 +13,13 @@ spring:
             # Strip first path，such base
             - StripPrefix=1
             # - RewritePath=/base/,/
+
+        - id: jwt
+          uri: lb://app-name
+          predicates:
+            - Path=/jwt/**
+          filters:
+            - GenerateJwt=form:id,system,id
 eureka:
   client:
     enabled: false
