@@ -3,10 +3,7 @@ package com.jtj.example.springcloudgateway;
 import lombok.Data;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.cloud.gateway.support.DefaultServerRequest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
@@ -54,11 +51,7 @@ public class GenerateJwtGatewayFilterFactory extends AbstractGatewayFilterFactor
                             return Mono.justOrEmpty(first);
                         }
                         if ("form".equals(place[0])) {
-                            /*return exchange.getFormData().map(formData -> {
-                                String first = formData.getFirst(place[1]);
-                                return Optional.ofNullable(first).orElse("");
-                            });*/
-                            return new DefaultServerRequest(exchange).bodyToMono(new ParameterizedTypeReference<MultiValueMap<String, String>>() {}).map(formData -> {
+                            return exchange.getFormData().map(formData -> {
                                 String first = formData.getFirst(place[1]);
                                 return Optional.ofNullable(first).orElse("");
                             });

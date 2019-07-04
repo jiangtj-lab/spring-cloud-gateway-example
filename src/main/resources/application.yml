@@ -19,7 +19,6 @@ spring:
           predicates:
             - Path=/jwt/**
           filters:
-            - CacheRequest
             - GenerateJwt=form:id,system,id
 eureka:
   client:
